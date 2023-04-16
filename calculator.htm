@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/firstDesign.css">
+    <link rel="stylesheet" href="/css/secondDesign.css">
+</head>
+
+<body>
+
+    <div class="calc">
+        <input maxlength="14" readonly disabled="disabled" type="text" class="display" />
+        <div>
+            <button onclick="off()"><i class="fas fa-power-off"></i></button>
+            <button onclick="on()">ON</button>
+            <button onclick="back()">⌫</button>
+            <button class="checkbox-wrapper-3" id="switchh"><input onclick="switchh()" type="checkbox" id="cbx-3" />
+                <label for="cbx-3" class="toggle"><span></span></label></button>
+        </div>
+        <div>
+            <button onclick="clean()">C</button>
+            <button onclick="opp()">+/-</button>
+            <button onclick="mathh('%')">%</button>
+            <button onclick="mathh('+')">+</button>
+        </div>
+        <div>
+            <button onclick="clicked('7')">7</button>
+            <button onclick="clicked('8')">8</button>
+            <button onclick="clicked('9')">9</button>
+            <button onclick="mathh('*')">×</button>
+        </div>
+        <div>
+            <button onclick="clicked('4')">4</button>
+            <button onclick="clicked('5')">5</button>
+            <button onclick="clicked('6')">6</button>
+            <button onclick="mathh('-')">-</button>
+        </div>
+        <div>
+            <button onclick="clicked('1')">1</button>
+            <button onclick="clicked('2')">2</button>
+            <button onclick="clicked('3')">3</button>
+            <button onclick="mathh('+')">+</button>
+        </div>
+        <div>
+            <button onclick="zero(0)">0</button>
+            <button onclick="fraction('.')">.</button>
+            <button onclick="calc()" id="equal">=</button>
+        </div>
+    </div>
+
+    <script src="/fontawesome.js"></script>
+
+    <script>
+
+        const display = document.querySelector(".display")
+        const calcbody = document.querySelector(".calc")
+        const checkboxx = document.querySelector("#cbx-3")
+        const button = document.querySelectorAll("button")
+        const equal = document.querySelector("#equal")
+
+
+        clicked = (x) => {
+            if (display.value.startsWith("0.")) {
+                display.value += x
+            }
+            else if (display.value.startsWith("0")) {
+                let val = String(display.value).split("")
+                val.shift()
+                let result = val.toString().replaceAll(',', "")
+                display.value = result + x
+            }
+            else {
+                display.value += x
+            }
+        }
+
+        clean = () => { display.value = "" }
+
+
+        off = () => {
+            if (display.style.backgroundColor = "#ddd") {
+                display.style.backgroundColor = "black"
+            }
+
+            display.style.color = "black"
+            calcbody.classList.remove("firstDesignCalc")
+            calcbody.classList.remove("secondDesignCalc")
+            checkboxx.checked = false
+
+            button.forEach((item) => {
+                item.classList.add("calcBtn")
+                item.classList.remove("firstDesignBtn", "secondDesignBtn")
+            })
+            equal.classList.remove("firstEqual")
+        }
+
+
+        on = () => {
+            if (display.style.backgroundColor = "#666") {
+                display.style.backgroundColor = "#ddd"
+            }
+            display.value = ""
+            calcbody.classList.add("firstDesignCalc")
+            equal.classList.add("firstEqual")
+            button.forEach((item) => {
+                item.classList.remove("calcBtn")
+                item.classList.add("secondDesignBtn")
+            })
+        }
+
+
+        switchh = () => {
+            if (checkboxx.checked) {
+                calcbody.classList.add("secondDesignCalc")
+                calcbody.classList.remove("firstDesignCalc")
+                button.forEach(item => {
+                    item.classList.add("firstDesignBtn")
+                    item.classList.remove("secondDesignBtn")
+                })
+            }
+            else {
+                calcbody.classList.remove("secondDesignCalc")
+                calcbody.classList.add("firstDesignCalc")
+                button.forEach(item => {
+                    item.classList.remove("firstDesignBtn")
+                    item.classList.add("secondDesignBtn")
+                })
+            }
+        }
+
+        opp = () => {
+            if (display.value == "") {
+                display.value = display.value
+            }
+            else {
+                display.value = (0 - (eval(display.value)))
+            }
+        }
+
+
+        back = () => {
+            let val = String(display.value).split("")
+            val.pop()
+            let result = val.toString().replaceAll(',', "")
+            display.value = result
+        }
+
+
+        zero = (x) => {
+            if (display.value == "") {
+                display.value = "0"
+            }
+
+            else if (display.value.startsWith("0")) {
+                display.value.split("").shift().toString()
+                display.value += ""
+            }
+
+            else {
+                display.value += x
+            }
+        }
+
+
+        fraction = (x) => {
+            if (display.value.startsWith("-") && display.value.includes(".")) {
+                display.value += ''
+            }
+            else if ((display.value.includes(".") && display.value.includes("+")) || display.value.includes(".") && display.value.includes("-") || display.value.includes(".") && display.value.includes("*") || display.value.includes(".") && display.value.includes("/") || display.value.includes(".") && display.value.includes("%")) {
+                display.value += "."
+            }
+            else if (display.value.includes(".")) {
+                display.value += ""
+            }
+            else if (display.value == "") {
+                display.value = "0."
+            }
+            else {
+                display.value += x
+            }
+        }
+
+        let calculate = ""
+
+        mathh = (x) => {
+            if (display.value == "") {
+                display.value = ""
+            }
+            else if (!(display.value.includes('*') || display.value.includes('/') || display.value.includes('+') || display.value.includes('-') || display.value.includes('%'))) {
+                display.value += x
+                calculate = display.value.split("").toString().replaceAll(",", "")
+                display.value = calculate
+            }
+
+            else {
+                display.value = display.value
+            }
+
+        }
+
+        calc = () => {
+            if (display.value.includes('*') || display.value.includes('/') || display.value.includes('+') || display.value.includes('-')) {
+                display.value = eval(display.value)
+            }
+            else {
+                display.value = display.value
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

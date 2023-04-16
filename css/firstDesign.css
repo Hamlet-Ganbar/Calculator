@@ -1,0 +1,12 @@
+.firstDesignCalc {
+ background-image: url(../img/01.jpg);    
+}
+
+.firstDesignBtn {
+    background-image: url(../img/btn1.jpg);
+     border: 1px solid black;
+     color: black;
+ }
+.firstEqual{
+    background-color: blue !important;
+}

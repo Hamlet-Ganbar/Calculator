@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Bright DEMO';
+    src: url('BrightDEMO.eot');
+    src: local('Bright DEMO'), local('BrightDEMO'),
+        url('BrightDEMO.eot?#iefix') format('embedded-opentype'),
+        url('BrightDEMO.woff2') format('woff2'),
+        url('BrightDEMO.woff') format('woff'),
+        url('BrightDEMO.ttf') format('truetype'),
+        url('BrightDEMO.svg#BrightDEMO') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
